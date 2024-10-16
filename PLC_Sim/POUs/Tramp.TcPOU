@@ -1,0 +1,60 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="Tramp" Id="{820d301d-2dad-4f98-b113-d2dc72b186e4}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK Tramp
+VAR_INPUT
+	Dir: INT := -1;
+	Strobe: BOOL;
+END_VAR
+VAR_OUTPUT
+END_VAR
+VAR
+	AtPos: INT;
+	Goto_Pos: INT;
+	Status: INT := 0;
+	Error: BOOL;
+	Speed: INT;
+	Display : STRING;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[IF Strobe THEN
+	Goto_Pos := Goto_Pos + dir;
+END_IF
+
+
+GVL.qiAtStation1 := FALSE;
+GVL.qiAtStation2 := FALSE;
+IF AtPos > -50 AND atPos < 1 THEN
+	GVL.qiAtStation1 := TRUE;
+	//GVL.qiDisplay:='At Station1';
+ELSIF AtPos > 550 AND atPos < 600 THEN
+	GVL.qiAtStation2 := TRUE;
+	//GVL.qiDisplay:='At Station2';
+END_IF
+
+IF AtPos > -40 AND AtPos <600 THEN
+	AtPos := Goto_Pos;
+	//GVL.qiDisplay:='On the way';
+END_IF]]></ST>
+    </Implementation>
+    <LineIds Name="Tramp">
+      <LineId Id="47" Count="0" />
+      <LineId Id="123" Count="1" />
+      <LineId Id="134" Count="2" />
+      <LineId Id="78" Count="0" />
+      <LineId Id="70" Count="0" />
+      <LineId Id="75" Count="0" />
+      <LineId Id="155" Count="0" />
+      <LineId Id="71" Count="0" />
+      <LineId Id="81" Count="0" />
+      <LineId Id="157" Count="0" />
+      <LineId Id="72" Count="0" />
+      <LineId Id="139" Count="0" />
+      <LineId Id="131" Count="0" />
+      <LineId Id="130" Count="0" />
+      <LineId Id="158" Count="0" />
+      <LineId Id="140" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

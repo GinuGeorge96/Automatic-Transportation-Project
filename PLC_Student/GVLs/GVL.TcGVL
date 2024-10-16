@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <GVL Name="GVL" Id="{71d90b3b-838f-42b7-9031-672ba951413e}">
+    <Declaration><![CDATA[{attribute 'qualified_only'}
+VAR_GLOBAL
+//Output from process to PLC
+	qxStrobe		AT %Q*:	BOOL;
+	qxDir			AT %Q*:	INT;
+	
+//Input to process from PLC
+	iiAtStation1		AT %I*:	BOOL;
+	iiAtStation2		AT %I*:	BOOL;
+END_VAR]]></Declaration>
+  </GVL>
+</TcPlcObject>

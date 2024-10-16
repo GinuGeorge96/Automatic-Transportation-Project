@@ -1,0 +1,121 @@
+<?xml version="1.0"?>
+<TcSmProject xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.beckhoff.com/schemas/2012/07/TcSmProject" TcSmVersion="1.0" TcVersion="3.1.4024.53">
+	<Project ProjectGUID="{7540025D-CFA1-4860-BBC3-44F0891AA8A7}" TargetNetId="192.168.4.1.1.1" Target64Bit="true" ShowHideConfigurations="#x6">
+		<System>
+			<Tasks>
+				<Task Id="3" Priority="20" CycleTime="100000" AmsPort="350" AdtTasks="true">
+					<Name>PlcTask</Name>
+				</Task>
+				<Task Id="4" Priority="21" CycleTime="100000" AmsPort="351" AdtTasks="true">
+					<Name>PlcTask1</Name>
+				</Task>
+			</Tasks>
+		</System>
+		<Plc>
+			<Project GUID="{A8DEFF2B-1F7A-4627-A5B9-C8C16B77DD4A}" Name="PLC_Sim" PrjFilePath="PLC_Sim\PLC_Sim.plcproj" TmcFilePath="PLC_Sim\PLC_Sim.tmc" ReloadTmc="true" AmsPort="851" FileArchiveSettings="#x000e" SymbolicMapping="true">
+				<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="2" TmcPath="PLC_Sim\PLC_Sim.tmc" TmcHash="{FDE5CC9B-A256-5588-C89B-58CEE30291DD}">
+					<Name>PLC_Sim Instance</Name>
+					<CLSID ClassFactory="TcPlc30">{08500001-0000-0000-F000-000000000064}</CLSID>
+					<Vars VarGrpType="1">
+						<Name>PlcTask Inputs</Name>
+						<Var>
+							<Name>GVL.ixStrobe</Name>
+							<Comment><![CDATA[Output from process to PLC]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL.ixDir</Name>
+							<Type>INT</Type>
+						</Var>
+					</Vars>
+					<Vars VarGrpType="2" AreaNo="1">
+						<Name>PlcTask Outputs</Name>
+						<Var>
+							<Name>GVL.qiAtStation1</Name>
+							<Comment><![CDATA[Input to process from PLC]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL.qiAtStation2</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL.qiDisplay</Name>
+							<Type>STRING(80)</Type>
+						</Var>
+					</Vars>
+					<Contexts>
+						<Context>
+							<Id>0</Id>
+							<Name>PlcTask</Name>
+							<ManualConfig>
+								<OTCID>#x02010030</OTCID>
+							</ManualConfig>
+							<Priority>20</Priority>
+							<CycleTime>10000000</CycleTime>
+						</Context>
+					</Contexts>
+					<TaskPouOids>
+						<TaskPouOid Prio="20" OTCID="#x08502001"/>
+					</TaskPouOids>
+				</Instance>
+			</Project>
+			<Project GUID="{C295BB27-6191-4998-80BB-C1651CA0A967}" Name="PLC_Student" PrjFilePath="PLC_Student\PLC_Student.plcproj" TmcFilePath="PLC_Student\PLC_Student.tmc" ReloadTmc="true" AmsPort="852" FileArchiveSettings="#x000e" SymbolicMapping="true">
+				<Instance Id="#x08502040" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="2" TmcPath="PLC_Student\PLC_Student.tmc" TmcHash="{C24523AF-0162-76B1-13F0-6401F4918208}">
+					<Name>PLC_Student Instance</Name>
+					<CLSID ClassFactory="TcPlc30">{08500001-0000-0000-F000-000000000064}</CLSID>
+					<Vars VarGrpType="1">
+						<Name>PlcTask Inputs</Name>
+						<Var>
+							<Name>GVL.iiAtStation1</Name>
+							<Comment><![CDATA[Input to process from PLC]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL.iiAtStation2</Name>
+							<Type>BOOL</Type>
+						</Var>
+					</Vars>
+					<Vars VarGrpType="2" AreaNo="1">
+						<Name>PlcTask Outputs</Name>
+						<Var>
+							<Name>GVL.qxStrobe</Name>
+							<Comment><![CDATA[Output from process to PLC]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL.qxDir</Name>
+							<Type>INT</Type>
+						</Var>
+					</Vars>
+					<Contexts>
+						<Context>
+							<Id>0</Id>
+							<Name>PlcTask</Name>
+							<ManualConfig>
+								<OTCID>#x02010040</OTCID>
+							</ManualConfig>
+							<Priority>21</Priority>
+							<CycleTime>10000000</CycleTime>
+						</Context>
+					</Contexts>
+					<TaskPouOids>
+						<TaskPouOid Prio="21" OTCID="#x08502041"/>
+					</TaskPouOids>
+				</Instance>
+			</Project>
+		</Plc>
+		<Io/>
+	</Project>
+	<Mappings>
+		<MappingInfo Identifier="{08502001-2041-0850-0020-500840205008}" Id="#x02030010" Watchdog="04000000040000000400000004000000"/>
+		<OwnerA Name="TIPC^PLC_Sim^PLC_Sim Instance">
+			<OwnerB Name="TIPC^PLC_Student^PLC_Student Instance">
+				<Link VarA="PlcTask Inputs^GVL.ixDir" VarB="PlcTask Outputs^GVL.qxDir"/>
+				<Link VarA="PlcTask Inputs^GVL.ixStrobe" VarB="PlcTask Outputs^GVL.qxStrobe"/>
+				<Link VarA="PlcTask Outputs^GVL.qiAtStation1" VarB="PlcTask Inputs^GVL.iiAtStation1"/>
+				<Link VarA="PlcTask Outputs^GVL.qiAtStation2" VarB="PlcTask Inputs^GVL.iiAtStation2"/>
+			</OwnerB>
+		</OwnerA>
+	</Mappings>
+</TcSmProject>
